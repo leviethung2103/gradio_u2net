@@ -29,11 +29,12 @@ def infer(img):
 inputs = gr.inputs.Image(type="file", label="Original Image")
 outputs = [gr.outputs.Image(type="numpy", label="Front"), gr.outputs.Image(type="numpy", label="Mask")]
 
-title = "U^2-Net"
-description = "demo for U^2-Net. To use it, simply upload your image, or click one of the examples to load them. Read more at the links below."
-article = "<p style='text-align: center'><a href='https://arxiv.org/abs/2005.09007'>U^2-Net: Going Deeper with Nested U-Structure for Salient Object Detection</a> | <a href='https://github.com/xuebinqin/U-2-Net'>Github Repo</a></p>"
+title = "Image Segmentation"
+# description = "demo for U^2-Net. To use it, simply upload your image, or click one of the examples to load them. Read more at the links below."
+# article = "<p style='text-align: center'><a href='https://arxiv.org/abs/2005.09007'>U^2-Net: Going Deeper with Nested U-Structure for Salient Object Detection</a> | <a href='https://github.com/xuebinqin/U-2-Net'>Github Repo</a></p>"
 
 # examples = [["fox.jpg"], ["parrot.jpg"]]
 
 # gr.Interface(infer, inputs, outputs, title=title, description=description, article=article, examples=examples).launch()
-gr.Interface(infer, inputs, outputs, title=title, description=description, article=article, server_name=SERVER_HOST, server_port=SERVER_PORT).launch(share=PUBLIC_SHARE)
+gr.Interface(infer, inputs, outputs, title=title, theme="compact", server_name=SERVER_HOST, server_port=SERVER_PORT).launch(share=PUBLIC_SHARE)
+# gr.Interface(infer, inputs, outputs,server_name=SERVER_HOST, server_port=SERVER_PORT, theme="compact").launch(share=PUBLIC_SHARE)
