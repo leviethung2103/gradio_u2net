@@ -1,0 +1,33 @@
+# INSTRUCTION 
+# CUDA 10.1 - Ubuntu18.04
+# Python = 3.7
+# Paddle CPU Mode 
+# Current problem: MKL library
+FROM paddlepaddle/paddle:2.1.2-gpu-cuda10.2-cudnn7
+
+# Install linux packages
+RUN apt update && apt install -y zip htop screen libgl1-mesa-glx libsm6 libxext6 libxrender1
+
+# Install python dependencies
+COPY requirements2.txt .
+RUN python -m pip install --upgrade pip
+RUN pip install --no-cache -r requirements2.txt 
+RUN pip install --no-cache paddlepaddle==2.1.2
+
+# Create working directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Copy contents
+COPY . /usr/src/app
+
+RUN cp -r .env.example .env 
+
+# Set environment variables
+ENV HOME=/usr/src/app
+
+# Expose the port
+EXPOSE 5002
+
+# CMD ["python", "main.py"]
+ENTRYPOINT ["python3", "main.py"]
