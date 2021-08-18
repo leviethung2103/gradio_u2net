@@ -8,3 +8,6 @@ paddlehub==2.1.0
 gradio==2.2.8
 python-dotenv
 python-decouple
+python-multipart
+fastapi 
+uvicorn
