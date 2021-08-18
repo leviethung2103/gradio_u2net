@@ -128,3 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 output/*
+u2net/weights/u2net.pth
