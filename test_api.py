@@ -1,3 +1,9 @@
+# Author: Hung Le Viet 
+# This file is used to server the U2_Net Segmentation Model 
+# Utillize the FastAPI to host the application
+# I changed the paddlehub model -> native model 
+# This is an upgrade version from api.py file
+
 import sys
 from fastapi import FastAPI, File, UploadFile, Form
 from pydantic import BaseModel

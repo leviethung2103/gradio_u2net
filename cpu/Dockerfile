@@ -10,20 +10,6 @@ RUN pip uninstall -y nvidia-tensorboard nvidia-tensorboard-plugin-dlprof
 RUN pip install --no-cache -r requirements.txt 
 RUN pip install --no-cache paddlepaddle==2.1.2
 
-# # install mkl-dnn -> cannot run the app with mkl 
-# # Intel MKL function load error: cpu specific dynamic library is not loaded.
-# WORKDIR /root
-# # https://techoverflow.net/2019/05/18/how-to-fix-configuring-tzdata-interactive-input-when-building-docker-images/
-# ENV DEBIAN_FRONTEND=noninteractive
-# ENV TZ=Asia/Ho_Chi_Minh
-# RUN apt-get install -y cmake doxygen wget
-# RUN git clone https://github.com/01org/mkl-dnn.git
-# WORKDIR mkl-dnn
-# # RUN cd scripts && ./prepare_mkl.sh && cd ..
-# RUN mkdir -p build && cd build && cmake .. && make -j4
-# WORKDIR build
-# RUN make install
-
 # Create working directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app

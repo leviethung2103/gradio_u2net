@@ -19,6 +19,6 @@ COPY . /usr/src/app
 # Set environment variables
 ENV HOME=/usr/src/app
 # Expost the port
-EXPOSE 5000
+EXPOSE 5003
 
 CMD ["python3", "test_api.py"]

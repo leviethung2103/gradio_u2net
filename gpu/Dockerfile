@@ -1,9 +1,5 @@
 FROm nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04
-# FROM pure/python:3.7-cuda10.1-cudnn7-runtime
-# Install linux packages
-# RUN apt update && apt install -y zip htop screen libgl1-mesa-glx libsm6 libxext6 libxrender1
 
-# usd with nvidia/cuda:10.1-cudnn7-runtime-ubuntu
 RUN apt-get update && \
     apt-get install -y --no-install-recommends software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
