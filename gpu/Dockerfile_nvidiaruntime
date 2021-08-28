@@ -1,0 +1,39 @@
+# FROM tiangolo/uvicorn-gunicorn-fastapi:python3.6
+FROM nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get install -y --no-install-recommends \
+        apt-utils \
+        python3.6 \
+        python3-dev \
+        python3-pip \
+        python3-setuptools \
+        && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get update
+
+RUN apt install -y --no-install-recommends libsm6 libxext6 && \
+    apt-get install -y --no-install-recommends libxrender-dev
+
+RUN pip3 install pip --upgrade && pip3 install wheel
+
+# Install python dependencies
+COPY requirements_yolov5.txt .
+RUN pip3 install -r requirements_yolov5.txt 
+RUN pip3 install torch==1.6.0 torchvision==0.7.0
+
+# Create working directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Copy contents
+COPY . /usr/src/app
+
+# Set environment variables
+ENV HOME=/usr/src/app
+# Expost the port
+EXPOSE 5000
+
+CMD ["python3", "test_api.py"]
