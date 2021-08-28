@@ -1,6 +1,9 @@
 # Image Segmentattion
 * Update: Aug 28, 2021 
 
+## Changelog 
+* Aug-28: Change the Docker base image to reduce the size of application, changed to `nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04`, downgrade the version of Pytorch due to CUDNN problem.
+
 Source Code is saved on server at `/mnt/gradio_u2net` 
 
 ## Development 
@@ -21,8 +24,8 @@ pip install gradio==2.2.8
 
 ### 2. Các thư viện 
 Sau đây là các thư viện quan trọng cần chú ý 
-* torch==1.8.0
-* torchvision==0.9.0
+* torch==1.6.0
+* torchvision==0.7.0
 * opencv-pyhton=4.2.0.34
 
 
@@ -36,12 +39,12 @@ Lưu ý, port mặc định của ứng dụng khi build là port 5000. Nếu mu
 
 **Build Docker Image** 
 ```bash
-docker build -f gpu/Dockerfile_yolov5 -t gradio_u2net:0.0.3 .
+docker build -f gpu/Dockerfile_nvidiacuda -t gradio_u2net:0.0.4 .
 ```
 **Run the application**
 Nhớ sử dụng thêm flag `--gpus all` để sử dụng gpu. 
 ```bash
-docker run -itd --restart always -p 5000:5000 --gpus all gradio_u2net:0.0.3
+docker run -itd --restart always -p 5000:5000 --gpus all gradio_u2net:0.0.4
 ```
 
 ### 2.  Build Docker Image for Gradio Website - Demo Only 
