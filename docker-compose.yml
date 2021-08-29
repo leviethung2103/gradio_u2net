@@ -2,7 +2,7 @@ version: "2.3"
 services:
     ai:
         container_name: obj_segmentation
-        image: gradio_u2net:0.0.8
+        image: gradio_u2net:0.10.0
         restart: always 
         ports:
             - '5000:5000'

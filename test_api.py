@@ -61,6 +61,7 @@ object_segmentation = ObjectSegmentation(model=seg_model, batch_size=1, input_si
 
 class ImageSegmentation(BaseModel):
     image: str
+    crop: bool
 
 
 @app.post("/api/image-segmentation/from-file")
@@ -94,6 +95,7 @@ async def image_segmentation_from_file(file: UploadFile = File(...), crop: bool 
 
 @app.post("/api/image-segmentation/from-base64")
 async def image_segmentation_from_json(input: ImageSegmentation):
+    _start_time = time.time()
     p2s_request = jsonable_encoder(input)
     image = base64.b64decode(p2s_request["image"])
     image = cv2.imdecode(np.fromstring(image, np.uint8), cv2.IMREAD_ANYCOLOR)
@@ -102,14 +104,24 @@ async def image_segmentation_from_json(input: ImageSegmentation):
     object_segmentation.load_datas(paths=None, images=[image])
     object_segmentation.preprocess()
     outputs = object_segmentation.predict()
-    result = object_segmentation.postprocess(outputs, False, "output")
+    result = object_segmentation.postprocess(outputs, True, "output")
+
+    crop = p2s_request["crop"]
+    print ("crop:", crop)
 
     foreground = result[0]["front"]
     mask = result[0]["mask"]
+    trans = result[0]["trans"]
+    crop_trans = result[0]["crop_trans"]
 
-    res, im_png = cv2.imencode(".png", foreground)
-    return StreamingResponse(io.BytesIO(im_png.tobytes()), media_type="image/png")
+    print(f"{datetime.now()} - Processing Time: {time.time() - _start_time}")
 
+    if crop:
+        ret_url = f"http://{DEPLOY_HOST}:{DEPLOY_PORT}/{crop_trans}"
+        return JSONResponse(status_code=200, content={"image": ret_url})
+    else:
+        ret_url = f"http://{DEPLOY_HOST}:{DEPLOY_PORT}/{trans}"
+        return JSONResponse(status_code=200, content={"image": ret_url})
 
 if __name__ == "__main__":
     uvicorn.run(app, host=API_HOST, port=API_PORT)
