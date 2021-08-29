@@ -41,6 +41,9 @@ model_dir = os.path.join(os.getcwd(), "u2net", "weights", "u2net.pth")
 API_HOST = config("API_HOST", default="0.0.0.0")
 API_PORT = config("API_PORT", default=5000, cast=int)
 
+DEPLOY_HOST = config("DEPLOY_HOST", default="18.224.154.80")
+DEPLOY_PORT = config("DEPLOY_PORT", default=5000, cast=int)
+
 if torch.cuda.is_available():
     print("Using the GPU")
     print(torch.cuda.current_device())
@@ -82,10 +85,10 @@ async def image_segmentation_from_file(file: UploadFile = File(...), crop: bool 
     print(f"{datetime.now()} - Processing Time: {time.time() - _start_time}")
 
     if crop:
-        ret_url = f"http://{API_HOST}:{API_PORT}/{crop_trans}"
+        ret_url = f"http://{DEPLOY_HOST}:{DEPLOY_PORT}/{crop_trans}"
         return JSONResponse(status_code=200, content={"image": ret_url})
     else:
-        ret_url = f"http://{API_HOST}:{API_PORT}/{trans}"
+        ret_url = f"http://{DEPLOY_HOST}:{DEPLOY_PORT}/{trans}"
         return JSONResponse(status_code=200, content={"image": ret_url})
 
 

@@ -30,6 +30,7 @@ WORKDIR /usr/src/app
 
 # Copy contents
 COPY . /usr/src/app
+RUN cp -r .env.example .env
 
 # Set environment variables
 ENV HOME=/usr/src/app
