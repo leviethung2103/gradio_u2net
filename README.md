@@ -46,7 +46,8 @@ docker build -f gpu/Dockerfile_nvidiaruntime -t gradio_u2net:0.0.6 .
 **Run the application**
 Nhớ sử dụng thêm flag `--gpus all` để sử dụng gpu. 
 ```bash
-docker run -itd --restart always -p 5000:5000 --gpus all gradio_u2net:0.0.6
+# replace the version of build in the docker-compose file, change the port and host as well.
+docker-compose up -d 
 ```
 
 ### 2.  Build Docker Image for Gradio Website - Demo Only 

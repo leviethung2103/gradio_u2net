@@ -5,3 +5,4 @@ python-decouple
 python-multipart
 fastapi 
 uvicorn
+aiofiles
