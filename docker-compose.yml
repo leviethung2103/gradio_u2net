@@ -1,0 +1,20 @@
+version: 2.3
+services:
+    app:
+        image: 
+        restart: always 
+        ports:
+            - '5000:5000'
+        command: nvidia-smi
+        runtime: nvidia
+
+    # test:
+    #     image: nvidia/cuda:10.2-base
+    #     command: nvidia-smi
+    #     deploy:
+    #         resources:
+    #         reservations:
+    #             devices:
+    #             - driver: nvidia
+    #             count: 1
+    #             capabilities: [gpu, utility]
